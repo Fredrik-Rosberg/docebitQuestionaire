@@ -1,0 +1,40 @@
+CREATE TABLE IF NOT EXISTS users(
+id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+email varchar(55),
+hashedpassword varchar(100), 
+role varchar(55)
+
+);
+
+CREATE TABLE IF NOT EXISTS test(
+id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+testname varchar(55),
+uploaddate date,
+maxscore int
+);
+
+CREATE TABLE IF NOT EXISTS course(
+id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+name varchar(55),
+startdate date,
+enddate date,
+testid int,
+FOREIGN KEY (testid) REFERENCES test(id)
+);
+
+CREATE TABLE IF NOT EXISTS courseoccasion(
+id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+courseid int,
+userid int,
+FOREIGN KEY (courseid) REFERENCES course(id),
+FOREIGN KEY (userid) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS results(
+id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+testid int,
+userid int,
+score int,
+FOREIGN KEY (testid) REFERENCES test(id),
+FOREIGN KEY (userid) REFERENCES users(id)
+);
