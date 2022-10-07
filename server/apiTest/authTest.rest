@@ -1,0 +1,17 @@
+###
+//checkIfLogin
+GET http://localhost:3001/api/signin HTTP/1.1
+
+###
+//signInUser
+POST http://localhost:3001/api/signin HTTP/1.1
+content-type: application/json
+
+{
+    "email":"runeAdmin@hot.com",
+    "password":"Hej12345"
+}
+
+###
+//signOutUser
+DELETE http://localhost:3001/api/signin HTTP/1.1

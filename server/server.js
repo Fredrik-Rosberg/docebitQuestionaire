@@ -11,6 +11,7 @@ app.use(express.urlencoded({extended:true}))
 const userRoute=require("./src/users/usersRouter")
 const authRoute=require("./src/auth/authRouter")
 
+//Create session storage
 let session = require("express-session");
 
 app.use(
@@ -26,7 +27,10 @@ app.use(
 );
 
 app.use("/", userRoute);
-app.use("/", authRoute)
+app.use("/", authRoute);
+
+
+
 
 app.listen(PORT, () => {
   console.log(`Listen on port:${PORT}`);
