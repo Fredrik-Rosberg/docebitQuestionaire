@@ -2,8 +2,8 @@ const db = require("../../db");
 const encrypt = require("../../config/encryption");
 
 //get all users
-const getUsers = async (req, res) => {
-  let sqlQuery = "SELECT id, email FROM users";
+const getAllUsers = async (req, res) => {
+  let sqlQuery = "SELECT id, email, role FROM users";
   let result = await db.query(sqlQuery);
   res.json(result.rows);
 };
@@ -39,4 +39,4 @@ const deleteUser = async(req, res)=>{
 
 }
 
-module.exports = { getUsers, getUserById, createUser, deleteUser };
+module.exports = { getAllUsers, getUserById, createUser, deleteUser };

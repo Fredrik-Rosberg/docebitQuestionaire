@@ -1,0 +1,29 @@
+//getAllUsers
+GET http://localhost:3001/api/users 
+
+###
+///gerUserById
+GET http://localhost:3001/api/users/8 HTTP/1.1
+
+###
+//createNewUser
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+    "email":"rune4@hot.com",
+    "password":"Hej12345"
+}
+
+###
+//deleteUser
+DELETE http://localhost:3001/api/users/6 HTTP/1.1
+
+
+
+
+
+
+
+
+
