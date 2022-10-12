@@ -20,8 +20,16 @@ const createUser = async (req, res) => {
   let result;
   try {
     let encryptedPassword = encrypt(req.body.password);
-    let sqlQuery = "INSERT INTO users (email, password) VALUES ($1,$2)";
-    result = await db.query(sqlQuery, [req.body.email, encryptedPassword]);
+    console.log(encryptedPassword.length)
+    let sqlQuery =
+      "INSERT INTO users (email, hashedpassword, role) VALUES ($1,$2,$3)";
+    result = await db.query(sqlQuery, [
+      req.body.email,
+      encryptedPassword,
+      req.body.role,
+
+      
+    ]);
   } catch (error) {
     console.error(error);
   }
@@ -30,13 +38,12 @@ const createUser = async (req, res) => {
 };
 
 //delete user
-const deleteUser = async(req, res)=>{
-    let result;
-    let sqlQuery="DELETE FROM users WHERE id=$1"
-    result=await db.query(sqlQuery,[req.params.id])
-    console.log(result)
-    res.json(result)
-
-}
+const deleteUser = async (req, res) => {
+  let result;
+  let sqlQuery = "DELETE FROM users WHERE id=$1";
+  result = await db.query(sqlQuery, [req.params.id]);
+  console.log(result);
+  res.json(result);
+};
 
 module.exports = { getAllUsers, getUserById, createUser, deleteUser };

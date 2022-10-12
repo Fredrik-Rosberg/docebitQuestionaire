@@ -11,8 +11,9 @@ POST http://localhost:3001/api/users
 content-type: application/json
 
 {
-    "email":"rune4@hot.com",
-    "password":"Hej12345"
+    "email":"rune5@hot.com",
+    "password":"Hej12345",
+    "role":"admin"
 }
 
 ###

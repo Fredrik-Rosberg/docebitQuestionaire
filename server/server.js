@@ -8,8 +8,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
 //Routes
+const authRoute = require("./src/auth/authRouter");
 const userRoute=require("./src/users/usersRouter")
-const authRoute=require("./src/auth/authRouter")
+
 
 //Create session storage
 let session = require("express-session");

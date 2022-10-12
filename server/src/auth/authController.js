@@ -3,9 +3,11 @@ const db = require("../../db");
 
 //sign in
 const signInUser = async (req, res) => {
+  console.log(req.body)
   const encryptedPassword = encrypt(req.body.password);
+  console.log(encryptedPassword)
   let user = await db.query(
-    "SELECT * FROM users WHERE email =$1 AND password=$2",
+    "SELECT * FROM users WHERE email =$1 AND hashedpassword=$2",
     [req.body.email, encryptedPassword]
   );
   user = user.rows[0];
@@ -31,14 +33,14 @@ const signOutUser = async (req, res) => {
 
 const getSignedInUser = async (req, res) => {
   let user;
-  console.log("hh");
   console.log(req.session.user);
+  console.log(req.session.id)
   if (req.session.user) {
     user = await db.query("SELECT * FROM users WHERE email=$1", [
       req.session.user.email,
     ]);
 
-    console.log(user);
+
   }
 
   if (user) {
