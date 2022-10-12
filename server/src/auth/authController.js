@@ -5,7 +5,7 @@ const db = require("../../db");
 const signInUser = async (req, res) => {
   console.log(req.body)
   const encryptedPassword = encrypt(req.body.password);
-  console.log(encryptedPassword)
+  
   let user = await db.query(
     "SELECT * FROM users WHERE email =$1 AND hashedpassword=$2",
     [req.body.email, encryptedPassword]

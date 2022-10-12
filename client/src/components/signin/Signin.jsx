@@ -1,21 +1,32 @@
-
 import React from "react";
 import { useState } from "react";
+import { passwordValidator, emailValidator } from "./regValidator";
+import "./signin.css";
 
 function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const getSignedInUser=async()=>{
-     const loggedIn = await fetch("/api/signin");
-     const response2 = await loggedIn.json();
-     console.log("LLLLLLLLLLLLLLLLLLLLLLLL");
-     console.log(response2);
-     console.log("KKKKKKKKKKKKKKKKKKKKKKK");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
 
+  //OnSubmit kollas så att det inte är några felmeddelanden pga användarens felaktiga inputs. Kör endast signIn om det är ifyllt rätt enligt kravspecen. 
 
-  }
-  const handleSubmit = async (e) => {
+  const handleValidation = (e) => {
     e.preventDefault();
+    let validationPassword = passwordValidator(password);
+    setErrorPassword(validationPassword);
+
+    let validationEmail = emailValidator(email);
+    setErrorEmail(validationEmail);
+
+    if (errorEmail == "" && errorPassword == "") {
+      signIn();
+    }
+  };
+
+  //signar in. Skickar en postrequest till backend. Får svar om man är inloggad eller inte.  
+
+  const signIn = async (e) => {
     const data = { email: email, password: password };
 
     let dataResponse = await fetch("/api/signin", {
@@ -25,23 +36,22 @@ function Signin() {
     });
     let response = await dataResponse.json();
     if (response.loggedIn) {
-      console.log("You are logged in");
+      console.log("Infon ska in i cookie");
     } else {
       console.log("login failure");
     }
-    getSignedInUser()
   };
 
   return (
-    <form onSubmit={handleSubmit} className="signin">
+    <form onSubmit={handleValidation} className="signin">
       <label htmlFor="email">Enter email por favor: </label>
       <input
         onChange={(e) => setEmail(e.target.value)}
         value={email}
         placeholder="enter@email.com"
-        type="email"
-        required
+        type="text"
       />
+      <div className="error">{errorEmail}</div>
       <label htmlFor="email">Enter password por favor: </label>
       <input
         onChange={(e) => setPassword(e.target.value)}
@@ -49,6 +59,7 @@ function Signin() {
         placeholder="enter@password.com"
         type="password"
       />
+      <div className="error">{errorPassword}</div>
 
       <button type="submit">Submit</button>
     </form>
