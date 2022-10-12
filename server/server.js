@@ -5,12 +5,11 @@ const cors = require("cors");
 
 // app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }));
 
 //Routes
 const authRoute = require("./src/auth/authRouter");
-const userRoute=require("./src/users/usersRouter")
-
+const userRoute = require("./src/users/usersRouter");
 
 //Create session storage
 let session = require("express-session");
@@ -26,12 +25,11 @@ app.use(
     },
   })
 );
-
+app.get("/test", (req, res) => {
+  res.send("You're connected to backend");
+});
 app.use("/", userRoute);
 app.use("/", authRoute);
-
-
-
 
 app.listen(PORT, () => {
   console.log(`Listen on port:${PORT}`);
