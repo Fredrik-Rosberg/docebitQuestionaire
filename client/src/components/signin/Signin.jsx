@@ -1,37 +1,41 @@
 import React from "react";
 import { signIn } from "../../services/signin.service";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { validateUserInputs } from "../../services/validation.service";
 import "./signin.css";
 
 function Signin() {
+  const initValue = "Default";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorPassword, setErrorPassword] = useState("");
-  const [errorEmail, setErrorEmail] = useState("");
+  const [errorPassword, setErrorPassword] = useState(initValue);
+  const [errorEmail, setErrorEmail] = useState(initValue);
+  const [showMessages, setShowMessages] = useState(false);
 
   //OnSubmit kollas så att det inte är några felmeddelanden pga användarens felaktiga inputs. Kör endast signIn om det är ifyllt rätt enligt kravspecen.
+  useEffect(() => {
+    const { emailError, passwordError } = validateUserInputs(email, password);
+    setErrorPassword(passwordError);
+    setErrorEmail(emailError);
+    setShowMessages(false);
+  }, [email, password]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { emailError, passwordError } = validateUserInputs(email, password);
-    setErrorPassword(passwordError);
-    setErrorEmail(emailError);
-
-
-    if (errorEmail == "" && errorPassword == "" && email && password) {
+    if (errorEmail == "" && errorPassword == "") {
       const user = { email: email, password: password };
       signIn(user);
-
     }
+    setShowMessages(true);
   };
 
   return (
     <>
-
-      
-      <img className="background" src="../../src/assets/cropped-DocebIT01-1-1.jpg"/>
+      <img
+        className="background"
+        src="../../src/assets/cropped-DocebIT01-1-1.jpg"
+      />
       <form onSubmit={handleSubmit} className="signin">
         <h2 id="login-header">Docebit selftest login</h2>
 
@@ -42,13 +46,23 @@ function Signin() {
           <div>
             <input
               className="login-input"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value), setErrorEmail(initValue);
+              }}
               value={email}
               placeholder="enter@email.com"
               type="text"
             />
           </div>
-          <div className="error">{errorEmail}</div>
+          {showMessages ? (
+            errorEmail == initValue ? (
+              ""
+            ) : (
+              <div className="error">{errorEmail}</div>
+            )
+          ) : (
+            ""
+          )}
         </div>
 
         <div className="password-label">
@@ -57,19 +71,28 @@ function Signin() {
           </div>
           <input
             className="login-input"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value), setErrorPassword(initValue);
+            }}
             value={password}
             placeholder="enter@password.com"
             type="password"
           />
-          <div className="error">{errorPassword}</div>
+          {showMessages ? (
+            errorPassword == initValue ? (
+              ""
+            ) : (
+              <div className="error">{errorPassword}</div>
+            )
+          ) : (
+            ""
+          )}
         </div>
         <div className="button-css">
           <button id="submit-button" type="submit">
             Submit
           </button>
         </div>
-
       </form>
     </>
   );

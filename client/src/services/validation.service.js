@@ -14,7 +14,7 @@ export const validatePassword = (password) => {
     return "Password must have at least one uppercase, one lowercase, one numeric and one special character";
   }
 
-  return null;
+  return "";
 };
 
 ///Kollar om det finns email inskrivet, Kollar om den innehåller @ tecken.
@@ -26,7 +26,7 @@ export const validateEmail = (email) => {
     return "Must be a valid email";
   }
 
-  return null;
+  return "";
 };
 
 // Sätter meddelande för både email och password beroende på om användarens input följer kravspecen. Returnerar respektive meddelande.
