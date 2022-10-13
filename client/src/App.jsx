@@ -1,22 +1,25 @@
-import { useState, useEffect } from 'react'
-import React from 'react';
-import './App.css'
-import Signin from './components/signin/Signin';
+import { useState, useEffect } from "react";
+import React from "react";
+import "./App.css";
+import Signin from "./components/signin/Signin";
+import { getSignedInUser, signOut } from "./services/signin.service";
 
 function App() {
-  // const getSignedInUser = async () => {
-  //   const loggedIn = await fetch("/api/signin");
-  //   const response2 = await loggedIn.json();
-  //   console.log("LLLLLLLLLLLLLLLLLLLLLLLL");
-  //   console.log(response2);
-  //   console.log("KKKKKKKKKKKKKKKKKKKKKKK");
-  // };
-  return(
-      <>
-        <Signin />
-      
+  useEffect(() => {
+    getSignedInUser();
+  }, []);
+  
+  const handleSignOut = (e) => {
+    e.preventDefault();
+    signOut();
+  };
+
+  return (
+    <>
+      <button onClick={handleSignOut}>Sign out</button>
+      <Signin /> 
     </>
   );
 }
 
-export default App
+export default App;

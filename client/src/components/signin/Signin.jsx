@@ -1,6 +1,7 @@
 import React from "react";
+import { signIn } from "../../services/signin.service";
 import { useState } from "react";
-import { passwordValidator, emailValidator } from "./regValidator";
+import { validateUserInputs } from "../../services/validation.service";
 import "./signin.css";
 
 function Signin() {
@@ -11,42 +12,27 @@ function Signin() {
 
   //OnSubmit kollas så att det inte är några felmeddelanden pga användarens felaktiga inputs. Kör endast signIn om det är ifyllt rätt enligt kravspecen.
 
-  const handleValidation = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    let validationPassword = passwordValidator(password);
-    setErrorPassword(validationPassword);
 
-    let validationEmail = emailValidator(email);
-    setErrorEmail(validationEmail);
+    const { emailError, passwordError } = validateUserInputs(email, password);
+    setErrorPassword(passwordError);
+    setErrorEmail(emailError);
 
-    if (errorEmail == "" && errorPassword == "") {
-      signIn();
-    }
-  };
 
-  //signar in. Skickar en postrequest till backend. Får svar om man är inloggad eller inte.
+    if (errorEmail == "" && errorPassword == "" && email && password) {
+      const user = { email: email, password: password };
+      signIn(user);
 
-  const signIn = async (e) => {
-    const data = { email: email, password: password };
-
-    let dataResponse = await fetch("/api/signin", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    let response = await dataResponse.json();
-    if (response.loggedIn) {
-      console.log("Infon ska in i cookie");
-    } else {
-      console.log("login failure");
     }
   };
 
   return (
     <>
+
       
       <img className="background" src="../../src/assets/cropped-DocebIT01-1-1.jpg"/>
-      <form onSubmit={handleValidation} className="signin">
+      <form onSubmit={handleSubmit} className="signin">
         <h2 id="login-header">Docebit selftest login</h2>
 
         <div className="email-label">
@@ -83,9 +69,22 @@ function Signin() {
             Submit
           </button>
         </div>
+
       </form>
     </>
   );
 }
 
 export default Signin;
+
+//Bör felhanteras:
+
+// 1. - Sänder en postrequest om inga fält är ifyllda och man trycker på submit
+//    EVENTUELLT FIXAT - lade till email && password i if-satsen om där inte finns error-meddelanden
+
+// 2. - Om felmeddelande visas och man fyller i nya uppgifter och trycker på submit,
+//      så tas först meddelandena bort och man blir tvungen att trycka på submit ännu en gång.
+
+// 3. - Om användaren inte finns, ska ett felmeddelande visas.. ex. har du fyllt i rätt uppgifter?
+
+// 4. - Ska programmet ge felmeddelande på engelska eller svenska?
