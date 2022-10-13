@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS users(
 id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 email varchar(55),
-hashedpassword varchar(100), 
+hashedpassword varchar(255), 
 role varchar(55)
 
 );
