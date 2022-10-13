@@ -47,8 +47,18 @@ const deleteUser = async (req, res) => {
 const getUserByEmail = async (email) => {
   try {
     let sqlQuery = "SELECT id, email FROM users WHERE email=$1";
-    const result = await db.query(sqlQuery, [email]);
-    return JSON.stringify(result);
+    const user = await db.query(sqlQuery, [email]);
+    // user = user[0]
+    if(user.rows)
+    {
+      console.log("user")
+      console.log(JSON.stringify(user.rows[0].id))
+    }
+    else{
+      console.log("no user")
+      console.log(JSON.stringify(user.rows))
+    }
+    
   } catch (error) {
     return error;
   }

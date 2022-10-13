@@ -1,11 +1,13 @@
 const encrypt = require("../../config/encryption");
 const db = require("../../db");
+const { getUserByEmail } = require("../users/usersController");
 
 //sign in
 const signInUser = async (req, res) => {
   const encryptedPassword = encrypt(req.body.password);
 
   try {
+    let result = await getUserByEmail(req.body.email)
     let user = await db.query(
       "SELECT * FROM users WHERE email =$1 AND hashedpassword=$2",
       [req.body.email, encryptedPassword]
@@ -34,7 +36,7 @@ const getSignedInUser = async (req, res) => {
     let user;
     // console.log("user" + " " + JSON.stringify(req.session.user));
     // console.log("id" + " " + req.session.id);
-    console.log(req.session)
+    console.log(req.session);
     if (req.session.user) {
       user = await db.query("SELECT * FROM users WHERE email=$1", [
         req.session.user.email,
