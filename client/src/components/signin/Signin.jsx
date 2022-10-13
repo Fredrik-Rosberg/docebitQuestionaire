@@ -1,6 +1,7 @@
 import React from "react";
+import { signIn } from "../../services/signin.service";
 import { useState } from "react";
-import { passwordValidator, emailValidator } from "./regValidator";
+import { validateUserInputs } from "../../services/validation.service";
 import "./signin.css";
 
 function Signin() {
@@ -9,61 +10,57 @@ function Signin() {
   const [errorPassword, setErrorPassword] = useState("");
   const [errorEmail, setErrorEmail] = useState("");
 
-  //OnSubmit kollas så att det inte är några felmeddelanden pga användarens felaktiga inputs. Kör endast signIn om det är ifyllt rätt enligt kravspecen. 
+  //OnSubmit kollas så att det inte är några felmeddelanden pga användarens felaktiga inputs. Kör endast signIn om det är ifyllt rätt enligt kravspecen.
 
-  const handleValidation = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    let validationPassword = passwordValidator(password);
-    setErrorPassword(validationPassword);
 
-    let validationEmail = emailValidator(email);
-    setErrorEmail(validationEmail);
+    const { emailError, passwordError } = validateUserInputs(email, password);
+    setErrorPassword(passwordError);
+    setErrorEmail(emailError);
 
-    if (errorEmail == "" && errorPassword == "") {
-      signIn();
-    }
-  };
-
-  //signar in. Skickar en postrequest till backend. Får svar om man är inloggad eller inte.  
-
-  const signIn = async (e) => {
-    const data = { email: email, password: password };
-
-    let dataResponse = await fetch("/api/signin", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    let response = await dataResponse.json();
-    if (response.loggedIn) {
-      console.log("Infon ska in i cookie");
-    } else {
-      console.log("login failure");
+    if (errorEmail == "" && errorPassword == "" && email && password) {
+      const user = { email: email, password: password };
+      signIn(user);
     }
   };
 
   return (
-    <form onSubmit={handleValidation} className="signin">
-      <label htmlFor="email">Enter email por favor: </label>
-      <input
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-        placeholder="enter@email.com"
-        type="text"
-      />
-      <div className="error">{errorEmail}</div>
-      <label htmlFor="email">Enter password por favor: </label>
-      <input
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-        placeholder="enter@password.com"
-        type="password"
-      />
-      <div className="error">{errorPassword}</div>
+    <>
+      <form onSubmit={handleSubmit} className="signin">
+        <label htmlFor="email">Enter email por favor: </label>
+        <input
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          placeholder="enter@email.com"
+          type="text"
+        />
+        <div className="error">{errorEmail}</div>
+        <label htmlFor="email">Enter password por favor: </label>
+        <input
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          placeholder="enter@password.com"
+          type="password"
+        />
+        <div className="error">{errorPassword}</div>
 
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Sign in</button>
+      </form>
+    </>
   );
 }
 
 export default Signin;
+
+//Bör felhanteras:
+
+// 1. - Sänder en postrequest om inga fält är ifyllda och man trycker på submit
+//    EVENTUELLT FIXAT - lade till email && password i if-satsen om där inte finns error-meddelanden
+
+// 2. - Om felmeddelande visas och man fyller i nya uppgifter och trycker på submit,
+//      så tas först meddelandena bort och man blir tvungen att trycka på submit ännu en gång.
+
+// 3. - Om användaren inte finns, ska ett felmeddelande visas.. ex. har du fyllt i rätt uppgifter?
+
+// 4. - Ska programmet ge felmeddelande på engelska eller svenska?

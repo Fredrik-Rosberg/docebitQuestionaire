@@ -20,18 +20,16 @@ const createUser = async (req, res) => {
   let result;
   try {
     let encryptedPassword = encrypt(req.body.password);
-    console.log(encryptedPassword.length)
+    console.log(encryptedPassword.length);
     let sqlQuery =
       "INSERT INTO users (email, hashedpassword, role) VALUES ($1,$2,$3)";
     result = await db.query(sqlQuery, [
       req.body.email,
       encryptedPassword,
       req.body.role,
-
-      
     ]);
   } catch (error) {
-    console.error(error);
+    res.send(error);
   }
 
   res.json(result);
@@ -46,4 +44,20 @@ const deleteUser = async (req, res) => {
   res.json(result);
 };
 
-module.exports = { getAllUsers, getUserById, createUser, deleteUser };
+const getUserByEmail = async (email) => {
+  try {
+    let sqlQuery = "SELECT id, email FROM users WHERE email=$1";
+    const result = await db.query(sqlQuery, [email]);
+    return JSON.stringify(result);
+  } catch (error) {
+    return error;
+  }
+};
+
+module.exports = {
+  getAllUsers,
+  getUserById,
+  createUser,
+  deleteUser,
+  getUserByEmail
+};

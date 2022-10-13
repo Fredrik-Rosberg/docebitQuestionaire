@@ -1,7 +1,7 @@
 ///Kollar först om det finns lösen ord. Kollar sedan om det är mellan 8-50 tecken.
 ///Kollar om det finns stor bokstav, liten bokstav, nummer och specialtecken.
 
-export const passwordValidator = (password) => {
+export const validatePassword = (password) => {
   if (!password) {
     return "Password is required";
   } else if (password.length < 8 || password.length > 50) {
@@ -14,17 +14,25 @@ export const passwordValidator = (password) => {
     return "Password must have at least one uppercase, one lowercase, one numeric and one special character";
   }
 
-  return "";
+  return null;
 };
 
 ///Kollar om det finns email inskrivet, Kollar om den innehåller @ tecken.
 
-export const emailValidator = (email) => {
+export const validateEmail = (email) => {
   if (!email) {
     return "Email is required";
   } else if (!new RegExp(/(?=.*[@])/).test(email)) {
     return "Must be a valid email";
   }
 
-  return "";
+  return null;
+};
+
+// Sätter meddelande för både email och password beroende på om användarens input följer kravspecen. Returnerar respektive meddelande.
+
+export const validateUserInputs = (email, password) => {
+  const emailError = validateEmail(email);
+  const passwordError = validatePassword(password);
+  return { emailError, passwordError };
 };
