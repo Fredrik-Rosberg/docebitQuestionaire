@@ -19,33 +19,57 @@ function Signin() {
     setErrorPassword(passwordError);
     setErrorEmail(emailError);
 
+
     if (errorEmail == "" && errorPassword == "" && email && password) {
       const user = { email: email, password: password };
       signIn(user);
+
     }
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="signin">
-        <label htmlFor="email">Enter email por favor: </label>
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          placeholder="enter@email.com"
-          type="text"
-        />
-        <div className="error">{errorEmail}</div>
-        <label htmlFor="email">Enter password por favor: </label>
-        <input
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-          placeholder="enter@password.com"
-          type="password"
-        />
-        <div className="error">{errorPassword}</div>
 
-        <button type="submit">Sign in</button>
+      
+      <img className="background" src="../../src/assets/cropped-DocebIT01-1-1.jpg"/>
+      <form onSubmit={handleSubmit} className="signin">
+        <h2 id="login-header">Docebit selftest login</h2>
+
+        <div className="email-label">
+          <div>
+            <label htmlFor="email">Username: </label>
+          </div>
+          <div>
+            <input
+              className="login-input"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              placeholder="enter@email.com"
+              type="text"
+            />
+          </div>
+          <div className="error">{errorEmail}</div>
+        </div>
+
+        <div className="password-label">
+          <div className="label-style">
+            <label htmlFor="email">Password: </label>
+          </div>
+          <input
+            className="login-input"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            placeholder="enter@password.com"
+            type="password"
+          />
+          <div className="error">{errorPassword}</div>
+        </div>
+        <div className="button-css">
+          <button id="submit-button" type="submit">
+            Submit
+          </button>
+        </div>
+
       </form>
     </>
   );
