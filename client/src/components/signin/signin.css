@@ -1,3 +1,84 @@
-.error{
-    color: red;
+.error {
+    color: rgb(220, 3, 3);
+}
+
+.signin {
+    display: grid;
+    grid-template-rows: 20% 14% 14% 1fr;
+    background-color: rgba(146, 150, 196, 0.13);
+    width: 70vw;
+    height: 70vh;
+    /* border: 1px solid rgba(0, 0, 0, 0); */
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.281);
+    font-family: monospace;
+    border: 1px solid rgba(55, 0, 255, 0.179)
+}
+
+#submit-button {
+    background-color: rgba(8, 8, 8, 0.774);
+    color: white;
+    border: 1px solid rgba(254, 254, 254, 0.853);
+
+}
+
+#login-header {
+    align-self: center;
+}
+
+.email-label>div>label {
+    justify-self: left;
+}
+
+.button-css {
+    align-self: center;
+}
+
+.login-input {
+    border-color: rgba(0, 0, 0, 0.075);
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    height: 20px;
+    width: 220px;
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.133);
+}
+
+.background {
+    max-width: 70vw;
+    margin-bottom: 5vh;
+}
+
+button {
+    width: 110px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 36px;
+    box-shadow: 0 10px 20px -8px rgba(0, 0, 0, 0.179);
+}
+
+button {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+button:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 8px;
+    right: -20px;
+    transition: 0.5s;
+}
+
+button:hover {
+    padding-right: 24px;
+    padding-left: 8px;
+}
+
+button:hover:after {
+    opacity: 1;
+    right: 10px;
 }
