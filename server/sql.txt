@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS users(
 id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-email varchar(55),
-hashedpassword varchar(255), 
+email varchar(55) NOT NULL,
+hashedpassword varchar(255) NOT NULL, 
 role varchar(55)
 
 );
@@ -25,10 +25,11 @@ UNIQUE (name, startdate)
 
 CREATE TABLE IF NOT EXISTS courseoccasion(
 id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-courseid int,
-userid int,
+courseid int NOT NULL,
+userid int NOT NULL,
 FOREIGN KEY (courseid) REFERENCES course(id),
-FOREIGN KEY (userid) REFERENCES users(id)
+FOREIGN KEY (userid) REFERENCES users(id),
+
 );
 
 CREATE TABLE IF NOT EXISTS results(
