@@ -18,6 +18,7 @@ const getUserById = async (req, res) => {
 //create user
 const createUser = async (req, res) => {
   let result;
+  console.log(req.body.email)
   try {
     let encryptedPassword = encrypt(req.body.password);
     console.log(encryptedPassword.length);

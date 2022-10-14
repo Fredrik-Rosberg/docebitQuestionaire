@@ -1,19 +1,18 @@
 ///Create new courseoccation
-POST http://localhost:3001/api/courseoccasion
+POST http://localhost:3001/api/course
 content-type: application/json
 
 {
-    "name":"nykurs1",
+    "name":"nykurs3",
     "startdate": "2022-10-14",
     "enddate":"2022-12-25"
 }
 ###
-
 ///Get all courseoccations
 
-GET http://localhost:3001/api/courseoccasion
+GET http://localhost:3001/api/course
 
 ###
 ///Delete courseoccation
 
-DELETE  http://localhost:3001/api/courseoccasion/4
+DELETE  http://localhost:3001/api/course/12

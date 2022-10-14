@@ -11,7 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 //Routes
 const authRoute = require("./src/auth/authRouter");
 const userRoute = require("./src/users/usersRouter");
-const courseOccasionRoute = require("./src/courseoccasion/courseOccasionRouter");
+const courseRoute = require("./src/course/courseRouter");
+const courseOccasionRoute= require("./src/courseOccasion/courseOccasionRouter")
 
 //Create session storage
 
@@ -37,6 +38,7 @@ app.get("/test", (req, res) => {
 });
 app.use("/", userRoute);
 app.use("/", authRoute);
+app.use("/", courseRoute);
 app.use("/", courseOccasionRoute);
 
 app.listen(PORT, () => {
