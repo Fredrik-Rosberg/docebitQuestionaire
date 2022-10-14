@@ -12,10 +12,10 @@ const createCourseOccasion =async (req, res)=>{
    const sqlQuery =
      "INSERT INTO courseoccasion (courseid, userid) VALUES($1, $2)"
      console.log(req.body.userid)
-  //  let result = await db.query(sqlQuery, [
-  //    req.body.courseid,
-  //    req.body.userid
-  //  ]);
+   let result = await db.query(sqlQuery, [
+     req.body.courseid,
+     req.body.userid
+   ]);
    res.json(result);
  } catch (error) {
    res.send(error);
