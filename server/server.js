@@ -11,10 +11,13 @@ app.use(express.urlencoded({ extended: true }));
 //Routes
 const authRoute = require("./src/auth/authRouter");
 const userRoute = require("./src/users/usersRouter");
+const courseOccasionRoute = require("./src/courseoccasion/courseOccasionRouter");
 
 //Create session storage
 
 let session = require("express-session");
+let date=new Date();
+console.log(date)
 
 app.use(
   session({
@@ -34,6 +37,7 @@ app.get("/test", (req, res) => {
 });
 app.use("/", userRoute);
 app.use("/", authRoute);
+app.use("/", courseOccasionRoute);
 
 app.listen(PORT, () => {
   console.log(`Listen on port:${PORT}`);

@@ -1,0 +1,2 @@
+//displaya övriga tre komponenter
+//

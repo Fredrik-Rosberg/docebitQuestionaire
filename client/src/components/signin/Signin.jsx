@@ -1,7 +1,7 @@
 import React from "react";
-import { signIn } from "../../services/signin.service";
+import { signIn } from "./signin.service";
 import { useState, useEffect } from "react";
-import { validateUserInputs } from "../../services/validation.service";
+import { validateUserInputs } from "./signin.validation.service";
 import "./signin.css";
 
 function Signin() {

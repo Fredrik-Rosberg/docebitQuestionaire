@@ -19,7 +19,8 @@ name varchar(55),
 startdate date,
 enddate date,
 testid int,
-FOREIGN KEY (testid) REFERENCES test(id)
+FOREIGN KEY (testid) REFERENCES test(id),
+UNIQUE (name, startdate)
 );
 
 CREATE TABLE IF NOT EXISTS courseoccasion(
@@ -38,3 +39,5 @@ score int,
 FOREIGN KEY (testid) REFERENCES test(id),
 FOREIGN KEY (userid) REFERENCES users(id)
 );
+
+

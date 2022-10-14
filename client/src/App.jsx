@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import "./App.css";
 import Signin from "./components/signin/Signin";
-import { getSignedInUser, signOut } from "./services/signin.service";
+import { getSignedInUser, signOut } from "./components/signin/signin.service";
 
 function App() {
   useEffect(() => {

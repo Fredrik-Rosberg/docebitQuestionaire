@@ -22,7 +22,7 @@ export const validatePassword = (password) => {
 export const validateEmail = (email) => {
   if (!email) {
     return "Email is required";
-  } else if (!new RegExp(/(?=.*[@])/).test(email)) {
+  } else if (!new RegExp(/[^@ ]+@[^@ ]+\.[^@ .]{2,}/).test(email)) {
     return "Must be a valid email";
   }
 

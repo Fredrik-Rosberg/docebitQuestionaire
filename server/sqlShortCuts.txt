@@ -1,0 +1,2 @@
+"""Skapar unik insert i databas med bibehållen primarykey på id"""
+ALTER TABLE course ADD CONSTRAINT makeuniq UNIQUE("name",startdate);
