@@ -1,0 +1,12 @@
+///Gets all courseoccasions
+GET http://localhost:3001/api/courseoccasion
+###
+///Posts new courseoccasion
+
+POST http://localhost:3001/api/courseoccasion
+Content-Type: : application/json
+
+{
+    "courseid": 11,
+    "userid":3
+}

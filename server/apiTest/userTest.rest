@@ -8,10 +8,10 @@ GET http://localhost:3001/api/users/8 HTTP/1.1
 ###
 //createNewUser
 POST http://localhost:3001/api/users
-content-type: application/json
+Content-Type:  application/json
 
 {
-    "email":"rune6@hot.com",
+    "email":"rune7@hot.com",
     "password":"Hej12345!",
     "role":"admin"
 }
