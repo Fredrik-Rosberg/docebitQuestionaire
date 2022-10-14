@@ -7,6 +7,6 @@ POST http://localhost:3001/api/courseoccasion
 Content-Type : application/json
 
 {
-    "courseid": 10,
-    "userid":4
+    "courseid": 3,
+    "userid":1
 }
