@@ -8,7 +8,7 @@ POST http://localhost:3001/api/signin HTTP/1.1
 content-type: application/json
 
 {
-    "email":"rune6@hot.com",
+    "email":"admin@admin.com",
     "password":"Hej12345!"
 }
 

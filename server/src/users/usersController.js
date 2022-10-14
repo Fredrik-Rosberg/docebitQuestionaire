@@ -21,7 +21,7 @@ const createUser = async (req, res) => {
   console.log(req.body.email)
   try {
     let encryptedPassword = encrypt(req.body.password);
-    console.log(encryptedPassword.length);
+    console.log(encryptedPassword);
     let sqlQuery =
       "INSERT INTO users (email, hashedpassword, role) VALUES ($1,$2,$3)";
     result = await db.query(sqlQuery, [
