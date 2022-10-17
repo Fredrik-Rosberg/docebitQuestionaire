@@ -16,6 +16,8 @@ Content-Type:  application/json
     "role":"admin"
 }
 
+
+
 ###
 //deleteUser
 DELETE http://localhost:3001/api/users/2  HTTP/1.1

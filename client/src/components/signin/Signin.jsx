@@ -1,7 +1,7 @@
 import React from "react";
 import { signIn } from "./signin.service";
 import { useState, useEffect } from "react";
-import { validateUserInputs } from "./signin.validation.service";
+import { validateUserInputs } from "./validation.service";
 import "./signin.css";
 
 function Signin() {
@@ -20,12 +20,22 @@ function Signin() {
     setShowMessages(false);
   }, [email, password]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (errorEmail == "" && errorPassword == "") {
       const user = { email: email, password: password };
-      signIn(user);
+      let response = await signIn(user);
+      if(response && response=="No matching user"){
+        setErrorEmail(response)
+      }
+      else{
+        setErrorPassword(response)
+
+      }
+      
+      
+      
     }
     setShowMessages(true);
   };

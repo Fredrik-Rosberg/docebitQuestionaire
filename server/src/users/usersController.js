@@ -8,6 +8,7 @@ const getAllUsers = async (req, res) => {
   res.json(result.rows);
 };
 
+
 //get user by id
 const getUserById = async (req, res) => {
   let sqlQuery = "SELECT id, email FROM users WHERE id=$1";
@@ -49,20 +50,22 @@ const getUserByEmail = async (email) => {
   try {
     let sqlQuery = "SELECT id, email FROM users WHERE email=$1";
     const user = await db.query(sqlQuery, [email]);
-    // user = user[0]
-    if(user.rows)
-    {
-      console.log("user")
-      console.log(JSON.stringify(user.rows[0].id))
+    if(user.rows[0]){
+      return user
     }
     else{
-      console.log("no user")
-      console.log(JSON.stringify(user.rows))
+      return null
     }
+
+
     
   } catch (error) {
+    
     return error;
   }
+
+
+
 };
 
 module.exports = {

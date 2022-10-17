@@ -9,8 +9,13 @@ export const signIn = async (data) => {
       body: JSON.stringify(data),
     });
     let response = await dataResponse.json();
-    if (response.loggedIn) {
-      console.log(response);
+    console.log(response)
+    if(response.loggedIn){
+      return null
+    }
+    else{
+      console.log(response.message)
+      return response.message
     }
   } catch (error) {
     console.log(error);

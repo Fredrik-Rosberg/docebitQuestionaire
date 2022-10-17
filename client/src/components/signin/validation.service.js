@@ -36,3 +36,5 @@ export const validateUserInputs = (email, password) => {
   const passwordError = validatePassword(password);
   return { emailError, passwordError };
 };
+
+

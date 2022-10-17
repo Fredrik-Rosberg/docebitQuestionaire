@@ -9,6 +9,7 @@ function App() {
     getSignedInUser();
   }, []);
   
+  
   const handleSignOut = (e) => {
     e.preventDefault();
     signOut();
