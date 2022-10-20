@@ -1,11 +1,13 @@
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  server: {
+  // server: {
     
-    proxy: {
-      "/api": "http://localhost:3002"
+  //   proxy: {
+  //     "/api": "http://localhost:3002"
       
-    },
-  },
+  //   },
+  // },
+  plugins:[react()]
 });
