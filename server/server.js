@@ -1,5 +1,6 @@
 const express = require("express");
-const PORT = "3001";
+const PORT = process.env.PORT || 3002;
+
 const app = express();
 const cors = require("cors");
 const oneDay = 1000 * 60 * 60 * 24;

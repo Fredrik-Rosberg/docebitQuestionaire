@@ -8,29 +8,37 @@ const signInUser = async (req, res) => {
   let userExists;
   try {
     userExists = await getUserByEmail(req.body.email);
+    
     if (userExists) {
-      try{let user = await db.query(
-        "SELECT * FROM users WHERE email =$1 AND hashedpassword=$2",
-        [req.body.email, encryptedPassword]
-      );
-      user = user.rows[0];
-      delete user.password;
-      req.session.user = user;
-      req.session.user.loggedIn = true;
-      res.json({ loggedIn: true }); }
-      catch(err){
+      try {
+        let user = await db.query(
+          "SELECT * FROM users WHERE email =$1 AND hashedpassword=$2",
+          [req.body.email, encryptedPassword]
+        );
+
+        user = user.rows[0];
+        delete user.password;
+        req.session.user = user;
+        req.session.user.loggedIn = true;
+        res.status(200).json({ loggedIn: true, message: "Congrats you are logged in" });
+      } catch (err) {
         res.status(401).json({ loggedIn: false, message: "Wrong password" });
       }
+      
+     
+    } else {
+      res.status(401).json({ loggedIn: false, message: "No matching user" });
     }
-
-    else{res.status(401).json({ loggedIn: false, message: "No matching user" });}
-  
-} catch(err){console.log(err)}};
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 //sign out
 const signOutUser = async (req, res) => {
   req.session.destroy(() => {
-    res.json({ loggedIn: false });
+   res.json({ loggedIn: false });
+  
   });
 };
 

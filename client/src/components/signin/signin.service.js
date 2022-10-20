@@ -11,7 +11,7 @@ export const signIn = async (data) => {
     let response = await dataResponse.json();
     console.log(response)
     if(response.loggedIn){
-      return null
+      return response.message
     }
     else{
       console.log(response.message)
@@ -28,7 +28,8 @@ export const signOut = async () => {
       method: "delete",
     });
     response = await response.json();
-    console.log(response);
+    return response.message
+  
   } catch (error) {
     console.log(error);
   }

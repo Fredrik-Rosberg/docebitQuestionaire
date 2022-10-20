@@ -26,12 +26,15 @@ function Signin() {
     if (errorEmail == "" && errorPassword == "") {
       const user = { email: email, password: password };
       let response = await signIn(user);
-      if(response && response=="No matching user"){
+      console.log(response)
+      if(response=="No matching user"){
         setErrorEmail(response)
       }
-      else{
+      else if(response=="Congrats you are logged in"){
         setErrorPassword(response)
-
+      
+      } else {
+        setErrorPassword(response);
       }
       
       
