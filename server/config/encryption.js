@@ -1,4 +1,18 @@
+const bcrypt=require('bcrypt')
+const saltRounds=10
+
+
+
+
+
+
+
+
+
+
+
 const crypto = require("crypto");
+
 const salt = "toaheriaheithfd".toString("hex");
 
 module.exports = function (password) {
