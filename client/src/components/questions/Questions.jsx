@@ -62,36 +62,34 @@ function Questions() {
     }
   };
 
-  function previousQ() {
-    console.log(questionCounter);
-    const modQuestionCounter = questionCounter - 1;
+  const setAndGetPreviousAnswers = (event, button) => {
+     localStorage.setItem(
+       `answers${questionCounter}`,
+       JSON.stringify(answerMatrix)
+     );
+    let modQuestionCounter;
+
+    if (button === "previousQ") {
+      modQuestionCounter = questionCounter - 1;
+    } else if (button === "nextQ") {
+      modQuestionCounter = questionCounter + 1;
+    }
     setQuestionCounter(modQuestionCounter);
-    console.log(modQuestionCounter);
     let previousMatrix = localStorage.getItem(`answers${modQuestionCounter}`);
-    let parsedMatrix = JSON.parse(previousMatrix);
-    setOptionOne(parsedMatrix.optionOne);
-    setOptionTwo(parsedMatrix.optionTwo);
-    setOptionThree(parsedMatrix.optionThree);
-  }
 
-  function nextQ() {
-    localStorage.setItem(
-      `answers${questionCounter}`,
-      JSON.stringify(answerMatrix)
-    );
-
-    // console.log(questionCounter);
-    const modQuestionCounter = questionCounter + 1;
-    // console.log(modQuestionCounter)
-    setQuestionCounter(modQuestionCounter);
-
-    const previousMatrix = localStorage.getItem(`answers${modQuestionCounter}`);
+    const parsedPreviousMatrix = JSON.parse(previousMatrix);
     if (previousMatrix === null) {
       setOptionOne(false);
       setOptionTwo(false);
       setOptionThree(false);
+    } else {
+      setOptionOne(parsedPreviousMatrix.optionOne);
+      setOptionTwo(parsedPreviousMatrix.optionTwo);
+      setOptionThree(parsedPreviousMatrix.optionThree);
     }
-  }
+  };
+
+  
 
   return (
     <>
@@ -121,8 +119,10 @@ function Questions() {
         {question.option3}
       </label>
 
-      <button onClick={previousQ}>previous quest</button>
-      <button onClick={nextQ}>next quest</button>
+      <button onClick={(e) => setAndGetPreviousAnswers(e, "previousQ")}>
+        previous quest
+      </button>
+      <button onClick={(e) => setAndGetPreviousAnswers(e, "nextQ")}>next quest</button>
     </>
   );
 }
