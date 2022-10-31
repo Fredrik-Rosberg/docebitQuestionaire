@@ -7,6 +7,8 @@ function Questions() {
   const [optionTwo, setOptionTwo] = useState(false);
   const [optionThree, setOptionThree] = useState(false);
 
+  
+
   const questions = [
     {
       question: "Fråga 0",
@@ -63,17 +65,16 @@ function Questions() {
   };
 
   const setAndGetPreviousAnswers = (event, button) => {
-     localStorage.setItem(
-       `answers${questionCounter}`,
-       JSON.stringify(answerMatrix)
-     );
+    localStorage.setItem(
+      `answers${questionCounter}`,
+      JSON.stringify(answerMatrix)
+    );
     let modQuestionCounter;
 
-    if (button === "previousQ") {
-      modQuestionCounter = questionCounter - 1;
-    } else if (button === "nextQ") {
-      modQuestionCounter = questionCounter + 1;
-    }
+    button
+      ? (modQuestionCounter = questionCounter - 1)
+      : (modQuestionCounter = questionCounter + 1);
+
     setQuestionCounter(modQuestionCounter);
     let previousMatrix = localStorage.getItem(`answers${modQuestionCounter}`);
 
@@ -88,8 +89,6 @@ function Questions() {
       setOptionThree(parsedPreviousMatrix.optionThree);
     }
   };
-
-  
 
   return (
     <>
@@ -119,10 +118,12 @@ function Questions() {
         {question.option3}
       </label>
 
-      <button onClick={(e) => setAndGetPreviousAnswers(e, "previousQ")}>
+      <button onClick={(e) => setAndGetPreviousAnswers(e, true)}>
         previous quest
       </button>
-      <button onClick={(e) => setAndGetPreviousAnswers(e, "nextQ")}>next quest</button>
+      <button onClick={(e) => setAndGetPreviousAnswers(e, false)}>
+        next quest
+      </button>
     </>
   );
 }
